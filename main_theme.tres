@@ -1252,11 +1252,11 @@ cache/0/16/0/glyphs/268435480/texture_idx = 0
 
 [resource]
 ColorPicker/constants/center_slider_grabbers = 1
-ColorPicker/constants/h_width = 10
+ColorPicker/constants/h_width = 16
 ColorPicker/constants/label_width = 6
 ColorPicker/constants/margin = 0
-ColorPicker/constants/sv_height = 64
-ColorPicker/constants/sv_width = 256
+ColorPicker/constants/sv_height = 128
+ColorPicker/constants/sv_width = 128
 ColorPicker/icons/add_preset = SubResource("ImageTexture_470mv")
 ColorPicker/icons/bar_arrow = SubResource("ImageTexture_58jnp")
 ColorPicker/icons/color_hue = SubResource("GradientTexture2D_52mx2")
