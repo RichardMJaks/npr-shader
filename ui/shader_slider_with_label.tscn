@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddmgk0hvl3dby"]
+
+[ext_resource type="Theme" uid="uid://ste42amy56vd" path="res://main_theme.tres" id="1_t1d8f"]
+[ext_resource type="Script" uid="uid://fxi2gbr0wak6" path="res://ui/get_shader_default_values.gd" id="2_8o4xx"]
+
+[node name="CelStep" type="HBoxContainer"]
+
+[node name="Cel Step" type="Label" parent="."]
+layout_mode = 2
+theme = ExtResource("1_t1d8f")
+text = "Cel Step"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+ticks_on_borders = true
+script = ExtResource("2_8o4xx")

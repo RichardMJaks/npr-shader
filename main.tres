@@ -12,5 +12,6 @@ shader_parameter/specular_step_spot = 0.9
 shader_parameter/light_strength = 1.53
 shader_parameter/smoothing = 0.008
 shader_parameter/fresnel_param = 2.3
+shader_parameter/fresnel_step = 0.3
 shader_parameter/specular_intensity = 15.0
 shader_parameter/specular_strength = 1.1

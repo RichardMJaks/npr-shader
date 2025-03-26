@@ -7,6 +7,7 @@ uniform float specular_step_spot: hint_range(0.0, 1.0, 0.01) = 0.5;
 uniform float light_strength: hint_range(0.1, 3.0, 0.01) = 1.0;
 uniform float smoothing: hint_range(0.0, 0.05, 0.001) = 0.0;
 uniform float fresnel_param: hint_range(0.0, 3.6, 0.1) = 1.4;
+uniform float fresnel_step: hint_range(0.0, 1.0, 0.01) = 0.3;
 uniform float specular_intensity: hint_range(0.0, 15.0, 0.1) = 3;
 uniform float specular_strength: hint_range(0.0, 5.0, 0.1) = 1;
 
@@ -42,7 +43,7 @@ float cel_fresnel(vec3 normal, vec3 light, vec3 view) {
 
 	float f_1 = 1.0 - r0;
 	float f_2 = pow(1.0 - ndv, 5);
-	float f = 1.0 - step(r0 + f_1 * f_2, step_spot);
+	float f = smoothstep(fresnel_step, fresnel_step + smoothing, r0 + f_1 * f_2);
 
 	return f;
 }
@@ -69,11 +70,14 @@ void light() {
 	float diffuse = cel_diffuse(normal, light, ATTENUATION);
 	float fresnel = cel_fresnel(normal, light, view);
 	float specular = cel_specular(normal, light, view);
-
+	
+	vec3 cel_diffuse_color = diffuse * total_light;
+	vec3 cel_fresnel_effect = fresnel * diffuse * total_light;
+	vec3 cel_specular = specular * specular_strength * diffuse * total_light;
+	
 	// Apply lighting effects
-	DIFFUSE_LIGHT += diffuse * total_light + fresnel * diffuse * total_light;
-	// Apply specular in diffuse to
-	SPECULAR_LIGHT += + specular * specular_strength * diffuse * total_light;
+	DIFFUSE_LIGHT += cel_diffuse_color + cel_fresnel_effect;
+	SPECULAR_LIGHT += cel_specular;
 }
 
 //void light() {

@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3hym38s6l1jt"]
+[gd_scene load_steps=14 format=3 uid="uid://d3hym38s6l1jt"]
 
 [ext_resource type="Material" uid="uid://smu33l81e4mm" path="res://main.tres" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://du6uepydbaj1i" path="res://pivot.gd" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://cebdtouais8l" path="res://pivot_master.gd" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://cd1kvwbshgkfo" path="res://valuesyncer.gd" id="2_lquwl"]
+[ext_resource type="Script" uid="uid://k3ns1ptibs15" path="res://controller.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://ddmgk0hvl3dby" path="res://ui/shader_slider_with_label.tscn" id="6_7mycd"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ig7tw"]
 mie_color = Color(0.668105, 0.709202, 0.796779, 1)
@@ -17,71 +20,62 @@ sky = SubResource("Sky_0xm2m")
 ambient_light_source = 2
 ambient_light_color = Color(0.525101, 0.525101, 0.525101, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
+bg_color = Color(0.36, 0.36, 0.36, 0.223529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(6.73831e-07, 0.662876, 0.830053, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+bg_color = Color(0, 0, 0, 0.635294)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek77"]
+bg_color = Color(0, 0, 0, 0.215686)
+
 [node name="Node3D" type="Node3D"]
 
-[node name="World" type="Node3D" parent="."]
-visible = false
-
-[node name="Ground" type="CSGBox3D" parent="World"]
-size = Vector3(9.68188, 1, 11.7693)
-
-[node name="Box1" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
-
-[node name="Box3" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80057, 1, -1)
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="World/Box3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461898, 0.4, 0.737823)
-operation = 2
-
-[node name="Box2" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.040309, 1, -1)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="World/Box2"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.039793)
-operation = 2
-radius = 0.313477
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.925968)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.372995, 0, 0.925968)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h2yge")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(0.901319, -0.229743, 0.367209, -0.432039, -0.415972, 0.800194, -0.0310902, -0.879878, -0.474181, 0, 0, 0)
-visible = false
+transform = Transform3D(-0.90123, 0.175352, -0.396278, -0.432634, -0.416332, 0.799685, -0.0247577, 0.892143, 0.451074, 0, 0, 0)
 
-[node name="Sphere" type="CSGSphere3D" parent="."]
+[node name="TestObjects" type="Node3D" parent="."]
+
+[node name="Sphere" type="CSGSphere3D" parent="TestObjects" node_paths=PackedStringArray("controller")]
 radius = 0.315771
 radial_segments = 100
 rings = 100
 material = ExtResource("1_h2yge")
+script = ExtResource("2_lquwl")
+controller = NodePath("../../UI/ControlBox")
 
 [node name="Lights" type="Node3D" parent="."]
 
 [node name="Lights" type="Node3D" parent="Lights"]
 
 [node name="BlueLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(-0.661933, -0.6601, -0.353391, 0.291437, -0.661694, 0.689973, -0.68971, 0.353945, 0.630753, 0.357444, -0.157376, 0.372443)
+transform = Transform3D(0.297007, -0.909108, -0.284562, 0.613461, -0.0456008, 0.785595, -0.728825, -0.408788, 0.545357, -0.160384, -0.331269, 0.393565)
 light_color = Color(0.331735, 0.627044, 1, 1)
 omni_range = 1.197
 omni_shadow_mode = 0
 
 [node name="RedLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(-0.0529314, -0.19764, -0.978078, -0.554866, -0.808188, 0.193342, -0.829267, 0.553371, -0.0669596, 0.0529314, 0.554866, 0.829267)
+transform = Transform3D(-0.103764, -0.72421, 0.680996, 0.927488, -0.316786, -0.195501, 0.35747, 0.61164, 0.705026, 0.103764, -0.927488, -0.35747)
 light_color = Color(0.999518, 0.531798, 0.781584, 1)
 
 [node name="GreenLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(0.680082, 0.56299, 0.471159, 0.714978, -0.653752, -0.250887, 0.166683, 0.50721, -0.846333, -0.254351, -0.267402, -0.0623394)
+transform = Transform3D(0.491154, -0.805649, -0.336362, -0.81818, -0.559472, 0.145198, -0.304612, 0.203603, -0.932124, -0.183692, 0.305999, 0.113925)
 light_color = Color(0.120852, 0.839941, 0.546237, 1)
 
 [node name="Pivots" type="Node3D" parent="Lights"]
 script = ExtResource("2_h2yge")
 
 [node name="BlueLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(-0.661933, -0.6601, -0.353391, 0.291437, -0.661694, 0.689973, -0.68971, 0.353945, 0.630753, 0, 0, 0)
+transform = Transform3D(0.297007, -0.909108, -0.284562, 0.613461, -0.0456008, 0.785595, -0.728825, -0.408788, 0.545357, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 0.54
@@ -93,7 +87,7 @@ rotation_edit_mode = 1
 remote_path = NodePath("../../../Lights/BlueLight")
 
 [node name="RedLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(-0.0529314, -0.19764, -0.978078, -0.554866, -0.808188, 0.193342, -0.829267, 0.553371, -0.0669596, 0, 0, 0)
+transform = Transform3D(-0.103764, -0.72421, 0.680996, 0.927488, -0.316786, -0.195501, 0.35747, 0.61164, 0.705026, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 1.0
@@ -104,7 +98,7 @@ rotation_edit_mode = 1
 remote_path = NodePath("../../../Lights/RedLight")
 
 [node name="GreenLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(0.680082, 0.56299, 0.471159, 0.714978, -0.653752, -0.250887, 0.166683, 0.50721, -0.846333, 0, 0, 0)
+transform = Transform3D(0.491154, -0.805649, -0.336362, -0.81818, -0.559472, 0.145198, -0.304612, 0.203603, -0.932124, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 0.374
@@ -114,3 +108,179 @@ speed = 0.317
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374, 0, 0)
 rotation_edit_mode = 1
 remote_path = NodePath("../../../Lights/GreenLight")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ControlBox" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_272bh")
+script = ExtResource("4_1bvp3")
+resource = ExtResource("1_h2yge")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ControlBox"]
+layout_mode = 2
+
+[node name="ShaderControls" type="PanelContainer" parent="UI/ControlBox/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7mycd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ControlBox/VBoxContainer/ShaderControls"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer"]
+layout_mode = 2
+text = "Shader parameters"
+horizontal_alignment = 1
+
+[node name="StepControls" type="PanelContainer" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5vw27")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer"]
+layout_mode = 2
+text = "Step function controls"
+
+[node name="CelStep" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/CelStep" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 1.0
+step = 0.01
+param_name = "step_spot"
+controlbox = NodePath("../../../../../../..")
+
+[node name="SpecularStep" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/SpecularStep" index="0"]
+text = "Specular Step"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/SpecularStep" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 1.0
+step = 0.01
+param_name = "specular_step_spot"
+controlbox = NodePath("../../../../../../..")
+
+[node name="FresnelStep" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/FresnelStep" index="0"]
+text = "Fresnel Step"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/FresnelStep" index="2" node_paths=PackedStringArray("controlbox")]
+min_value = 0.2
+max_value = 1.0
+step = 0.01
+value = 0.3
+param_name = "fresnel_step"
+controlbox = NodePath("../../../../../../..")
+
+[node name="Smoothing" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/Smoothing" index="0"]
+text = "Smoothing"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/Smoothing" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 0.05
+step = 0.001
+param_name = "smoothing"
+controlbox = NodePath("../../../../../../..")
+
+[node name="Specular" type="PanelContainer" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kek77")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer"]
+layout_mode = 2
+text = "Specular controls"
+
+[node name="SpecularIntensity" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularIntensity" index="0"]
+text = "Specular intensity"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularIntensity" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 15.0
+step = 0.1
+param_name = "specular_intensity"
+controlbox = NodePath("../../../../../../..")
+
+[node name="SpecularStrength" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularStrength" index="0"]
+text = "Specular Strength"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularStrength" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 0.4
+step = 0.1
+param_name = "specular_strength"
+controlbox = NodePath("../../../../../../..")
+
+[node name="Fresnel" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer" instance=ExtResource("6_7mycd")]
+layout_mode = 2
+
+[node name="Cel Step" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Fresnel" index="0"]
+text = "Fresnel n1 parameter"
+
+[node name="HSlider" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Fresnel" index="2" node_paths=PackedStringArray("controlbox")]
+max_value = 3.6
+step = 0.1
+param_name = "fresnel_param"
+controlbox = NodePath("../../../../..")
+
+[node name="LightControls" type="PanelContainer" parent="UI/ControlBox/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ControlBox/VBoxContainer/LightControls"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ControlBox/VBoxContainer/LightControls/VBoxContainer"]
+layout_mode = 2
+text = "Light Controls"
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/ControlBox/VBoxContainer/LightControls/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/ControlBox/VBoxContainer/LightControls/VBoxContainer/PanelContainer"]
+layout_mode = 2
+text = "Light 1"
+
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/CelStep/HSlider" to="UI/ControlBox" method="_cel_step_slider"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/SpecularStep/HSlider" to="UI/ControlBox" method="_specular_step_slider"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/FresnelStep/HSlider" to="UI/ControlBox" method="_fresnel_step"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/Smoothing/HSlider" to="UI/ControlBox" method="_smoothing_slider"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularIntensity/HSlider" to="UI/ControlBox" method="_specular_intensity_slider"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularStrength/HSlider" to="UI/ControlBox" method="_specular_strength_slider"]
+[connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Fresnel/HSlider" to="UI/ControlBox" method="_fresnel_slider"]
+
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/CelStep"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/SpecularStep"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/FresnelStep"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/StepControls/VBoxContainer/Smoothing"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularIntensity"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularStrength"]
+[editable path="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Fresnel"]
