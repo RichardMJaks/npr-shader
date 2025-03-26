@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://smu33l81e4mm"]
+
+[ext_resource type="Shader" uid="uid://dv7nlwenof00y" path="res://main.gdshader" id="1_24q3n"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_24q3n")
+shader_parameter/color = Color(0.59, 0.59, 0.59, 1)
+shader_parameter/ambient_strength = 1.0
+shader_parameter/step_spot = 0.42
+shader_parameter/specular_step_spot = 0.9
+shader_parameter/light_strength = 1.53
+shader_parameter/smoothing = 0.008
+shader_parameter/fresnel_param = 2.3
+shader_parameter/specular_intensity = 15.0
+shader_parameter/specular_strength = 1.1

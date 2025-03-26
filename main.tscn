@@ -1,0 +1,116 @@
+[gd_scene load_steps=7 format=3 uid="uid://d3hym38s6l1jt"]
+
+[ext_resource type="Material" uid="uid://smu33l81e4mm" path="res://main.tres" id="1_h2yge"]
+[ext_resource type="Script" uid="uid://du6uepydbaj1i" path="res://pivot.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://cebdtouais8l" path="res://pivot_master.gd" id="2_h2yge"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ig7tw"]
+mie_color = Color(0.668105, 0.709202, 0.796779, 1)
+ground_color = Color(0.550641, 0.44081, 0.309286, 1)
+
+[sub_resource type="Sky" id="Sky_0xm2m"]
+sky_material = SubResource("PhysicalSkyMaterial_ig7tw")
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 2
+sky = SubResource("Sky_0xm2m")
+ambient_light_source = 2
+ambient_light_color = Color(0.525101, 0.525101, 0.525101, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="World" type="Node3D" parent="."]
+visible = false
+
+[node name="Ground" type="CSGBox3D" parent="World"]
+size = Vector3(9.68188, 1, 11.7693)
+
+[node name="Box1" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -1)
+
+[node name="Box3" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80057, 1, -1)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="World/Box3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.461898, 0.4, 0.737823)
+operation = 2
+
+[node name="Box2" type="CSGBox3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.040309, 1, -1)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="World/Box2"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.039793)
+operation = 2
+radius = 0.313477
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.925968)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h2yge")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.901319, -0.229743, 0.367209, -0.432039, -0.415972, 0.800194, -0.0310902, -0.879878, -0.474181, 0, 0, 0)
+visible = false
+
+[node name="Sphere" type="CSGSphere3D" parent="."]
+radius = 0.315771
+radial_segments = 100
+rings = 100
+material = ExtResource("1_h2yge")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="Lights" type="Node3D" parent="Lights"]
+
+[node name="BlueLight" type="OmniLight3D" parent="Lights/Lights"]
+transform = Transform3D(-0.661933, -0.6601, -0.353391, 0.291437, -0.661694, 0.689973, -0.68971, 0.353945, 0.630753, 0.357444, -0.157376, 0.372443)
+light_color = Color(0.331735, 0.627044, 1, 1)
+omni_range = 1.197
+omni_shadow_mode = 0
+
+[node name="RedLight" type="OmniLight3D" parent="Lights/Lights"]
+transform = Transform3D(-0.0529314, -0.19764, -0.978078, -0.554866, -0.808188, 0.193342, -0.829267, 0.553371, -0.0669596, 0.0529314, 0.554866, 0.829267)
+light_color = Color(0.999518, 0.531798, 0.781584, 1)
+
+[node name="GreenLight" type="OmniLight3D" parent="Lights/Lights"]
+transform = Transform3D(0.680082, 0.56299, 0.471159, 0.714978, -0.653752, -0.250887, 0.166683, 0.50721, -0.846333, -0.254351, -0.267402, -0.0623394)
+light_color = Color(0.120852, 0.839941, 0.546237, 1)
+
+[node name="Pivots" type="Node3D" parent="Lights"]
+script = ExtResource("2_h2yge")
+
+[node name="BlueLightPivot" type="Node3D" parent="Lights/Pivots"]
+transform = Transform3D(-0.661933, -0.6601, -0.353391, 0.291437, -0.661694, 0.689973, -0.68971, 0.353945, 0.630753, 0, 0, 0)
+script = ExtResource("2_0xm2m")
+rotation_randomization = 0.039
+distance = 0.54
+speed = 0.45
+
+[node name="RT" type="RemoteTransform3D" parent="Lights/Pivots/BlueLightPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.54, 0, 0)
+rotation_edit_mode = 1
+remote_path = NodePath("../../../Lights/BlueLight")
+
+[node name="RedLightPivot" type="Node3D" parent="Lights/Pivots"]
+transform = Transform3D(-0.0529314, -0.19764, -0.978078, -0.554866, -0.808188, 0.193342, -0.829267, 0.553371, -0.0669596, 0, 0, 0)
+script = ExtResource("2_0xm2m")
+rotation_randomization = 0.039
+distance = 1.0
+
+[node name="RT" type="RemoteTransform3D" parent="Lights/Pivots/RedLightPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+rotation_edit_mode = 1
+remote_path = NodePath("../../../Lights/RedLight")
+
+[node name="GreenLightPivot" type="Node3D" parent="Lights/Pivots"]
+transform = Transform3D(0.680082, 0.56299, 0.471159, 0.714978, -0.653752, -0.250887, 0.166683, 0.50721, -0.846333, 0, 0, 0)
+script = ExtResource("2_0xm2m")
+rotation_randomization = 0.039
+distance = 0.374
+speed = 0.317
+
+[node name="RT" type="RemoteTransform3D" parent="Lights/Pivots/GreenLightPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.374, 0, 0)
+rotation_edit_mode = 1
+remote_path = NodePath("../../../Lights/GreenLight")
