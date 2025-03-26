@@ -4,4 +4,4 @@ extends HSlider
 @export var controlbox: Control
 
 func _ready():
-    value = controlbox.resource.get_shader_parameter(param_name)
+	value = controlbox.resource.get_shader_parameter(param_name)

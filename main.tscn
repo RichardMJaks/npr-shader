@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://d3hym38s6l1jt"]
+[gd_scene load_steps=20 format=4 uid="uid://d3hym38s6l1jt"]
 
 [ext_resource type="Script" uid="uid://csqmlvleols6e" path="res://test_object_controller.gd" id="1_272bh"]
 [ext_resource type="Material" uid="uid://smu33l81e4mm" path="res://main.tres" id="1_h2yge"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://k3ns1ptibs15" path="res://controller.gd" id="4_1bvp3"]
 [ext_resource type="ArrayMesh" uid="uid://bx5fvues3kkh0" path="res://lightbulb_01.obj" id="4_5vw27"]
 [ext_resource type="PackedScene" uid="uid://ddmgk0hvl3dby" path="res://ui/shader_slider_with_label.tscn" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://d4hreqhsftig4" path="res://ui/get_shader_default_values_color.gd" id="9_kek77"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ig7tw"]
 mie_color = Color(0.668105, 0.709202, 0.796779, 1)
@@ -95,7 +96,7 @@ script = ExtResource("2_lquwl")
 controller = NodePath("../../UI/ControlBox")
 
 [node name="Box" type="CSGBox3D" parent="TestObjects" node_paths=PackedStringArray("controller")]
-transform = Transform3D(0.745631, -0.318646, -0.585287, 0.636101, 0.0785325, 0.767642, -0.198667, -0.944639, 0.261262, 0, 0, 0)
+transform = Transform3D(-0.539277, 0.473966, 0.696119, -0.530885, -0.83303, 0.155964, 0.653711, -0.285466, 0.700866, 0, 0, 0)
 visible = false
 size = Vector3(0.4, 0.4, 0.4)
 material = ExtResource("1_h2yge")
@@ -119,24 +120,24 @@ surface_material_override/0 = ExtResource("1_h2yge")
 [node name="Lights" type="Node3D" parent="Lights"]
 
 [node name="BlueLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(-0.186048, -0.91744, 0.344192, 0.308743, 0.277502, 0.906817, -0.930017, 0.275683, 0.232325, 0.134327, -0.222912, 0.671472)
+transform = Transform3D(-0.0651235, -0.255866, 0.961575, 0.983845, 0.127628, 0.100434, -0.148896, 0.955198, 0.244016, 0.0470192, -0.710336, 0.107503)
 light_color = Color(0.331735, 0.627044, 1, 1)
 omni_range = 1.197
 omni_shadow_mode = 0
 
 [node name="RedLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(-0.343508, 0.619661, -0.705167, 0.932463, 0.139287, -0.33188, -0.107466, -0.771824, -0.625962, 0.297134, -0.80658, 0.0929582)
+transform = Transform3D(-0.619233, 0.581414, -0.526966, 0.483938, 0.811356, 0.326442, 0.617527, -0.0528942, -0.784193, 0.535637, -0.418606, -0.534161)
 light_color = Color(0.999518, 0.531798, 0.781584, 1)
 
 [node name="GreenLight" type="OmniLight3D" parent="Lights/Lights"]
-transform = Transform3D(0.59611, -0.0970347, 0.799323, 0.408459, 0.893761, -0.196129, -0.69408, 0.442613, 0.571217, -0.358858, -0.245892, 0.417836)
+transform = Transform3D(0.41827, -0.573528, 0.7073, 0.103529, -0.743567, -0.663783, 0.904749, 0.350196, -0.251157, -0.251798, -0.0623247, -0.544659)
 light_color = Color(0.120852, 0.839941, 0.546237, 1)
 
 [node name="Pivots" type="Node3D" parent="Lights"]
 script = ExtResource("2_h2yge")
 
 [node name="BlueLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(-0.186048, -0.91744, 0.344192, 0.308743, 0.277502, 0.906817, -0.930017, 0.275683, 0.232325, 0, 0, 0)
+transform = Transform3D(-0.0651235, -0.255866, 0.961575, 0.983845, 0.127628, 0.100434, -0.148896, 0.955198, 0.244016, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 0.722
@@ -148,7 +149,7 @@ rotation_edit_mode = 1
 remote_path = NodePath("../../../Lights/BlueLight")
 
 [node name="RedLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(-0.343508, 0.619661, -0.705167, 0.932463, 0.139287, -0.33188, -0.107466, -0.771824, -0.625962, 0, 0, 0)
+transform = Transform3D(-0.619233, 0.581414, -0.526966, 0.483938, 0.811356, 0.326442, 0.617527, -0.0528942, -0.784193, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 0.865
@@ -159,7 +160,7 @@ rotation_edit_mode = 1
 remote_path = NodePath("../../../Lights/RedLight")
 
 [node name="GreenLightPivot" type="Node3D" parent="Lights/Pivots"]
-transform = Transform3D(0.59611, -0.0970347, 0.799323, 0.408459, 0.893761, -0.196129, -0.69408, 0.442613, 0.571217, 0, 0, 0)
+transform = Transform3D(0.41827, -0.573528, 0.7073, 0.103529, -0.743567, -0.663783, 0.904749, 0.350196, -0.251157, 0, 0, 0)
 script = ExtResource("2_0xm2m")
 rotation_randomization = 0.039
 distance = 0.602
@@ -185,6 +186,7 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -325.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_272bh")
@@ -312,6 +314,18 @@ step = 0.1
 param_name = "fresnel_param"
 controlbox = NodePath("../../../../..")
 
+[node name="ColorPicker" type="ColorPicker" parent="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer" node_paths=PackedStringArray("controlbox")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+script = ExtResource("9_kek77")
+param_name = "color"
+controlbox = NodePath("../../../..")
+
 [node name="Objects" type="PanelContainer" parent="UI/ControlBox/VBoxContainer"]
 layout_mode = 2
 
@@ -347,6 +361,7 @@ text = "Bulb
 [connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularIntensity/HSlider" to="UI/ControlBox" method="_specular_intensity_slider"]
 [connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Specular/VBoxContainer/SpecularStrength/HSlider" to="UI/ControlBox" method="_specular_strength_slider"]
 [connection signal="value_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/Fresnel/HSlider" to="UI/ControlBox" method="_fresnel_slider"]
+[connection signal="color_changed" from="UI/ControlBox/VBoxContainer/ShaderControls/VBoxContainer/ColorPicker" to="UI/ControlBox" method="_color_picker"]
 [connection signal="pressed" from="UI/ControlBox/VBoxContainer/Objects/VBoxContainer/Sphere" to="TestObjects" method="show_object" binds= ["Sphere"]]
 [connection signal="pressed" from="UI/ControlBox/VBoxContainer/Objects/VBoxContainer/Box" to="TestObjects" method="show_object" binds= ["Box"]]
 [connection signal="pressed" from="UI/ControlBox/VBoxContainer/Objects/VBoxContainer/Fedora" to="TestObjects" method="show_object" binds= ["Fedora"]]

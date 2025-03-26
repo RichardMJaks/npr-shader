@@ -37,3 +37,7 @@ func _smoothing_slider(value:float) -> void:
 
 func _fresnel_step(value:float) -> void:
 	resource.set_shader_parameter("fresnel_step", value)
+
+
+func _color_picker(color:Color) -> void:
+	resource.set_shader_parameter("color", color)
